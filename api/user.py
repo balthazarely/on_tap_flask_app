@@ -8,7 +8,7 @@ from PIL import Image
 from flask import Blueprint, request, jsonify, url_for, send_file
 
 from flask_bcrypt import generate_password_hash, check_password_hash
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, logout_user
 from playhouse.shortcuts import model_to_dict
 
 # fist arg. is the blueprint name,
@@ -101,7 +101,13 @@ def login():
     except models.DoesNotExist:
         return jsonify(data={}, status={"code": 401, "message": "Username or Password was incorrect."})
 
+#Logout route to kill session
+@user.route("/logout")
 
+def logout():
+    logout_user()
+    print(user, "<-- this is logged out user")
+    return jsonify(status={"code": 200, "message": "Success"})
 
 
 
