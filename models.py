@@ -3,7 +3,7 @@ from flask_login import UserMixin
 import datetime
 
 # Connect to a Postgres database.
-DATABASE = PostgresqlDatabase('wine_app')
+DATABASE = PostgresqlDatabase('beer_app')
 
 class BaseModel(Model):
     """A base Model that will use our psql database"""
@@ -13,7 +13,7 @@ class BaseModel(Model):
 class User(UserMixin, BaseModel):
     username = CharField(unique=True)
     password = CharField(unique=True)
-    profile_img = CharField()
+    image = CharField()
 
 
 class Beer(BaseModel):
