@@ -1,12 +1,9 @@
 import models
-
 import os
 import sys
 import secrets
 from PIL import Image
-
 from flask import Blueprint, request, jsonify, url_for, send_file
-
 from flask_bcrypt import generate_password_hash, check_password_hash
 from flask_login import login_user, current_user, logout_user
 from playhouse.shortcuts import model_to_dict
@@ -94,14 +91,14 @@ def login():
         if(check_password_hash(user_dict['password'], payload['password'])):
             del user_dict['password']
             login_user(user)
-            print(user, '<-- this is the user')
+            print(user.image, '<-- this is the user')
             return jsonify(data=user_dict, status={"code": 200, "message": "Success"})
         else:
             return jsonify(data={}, status={"code": 401, "message": "Username or Password was incorrect."})
     except models.DoesNotExist:
         return jsonify(data={}, status={"code": 401, "message": "Username or Password was incorrect."})
 
-#Logout route to kill session
+# Logout route to kill session
 @user.route("/logout")
 
 def logout():
@@ -111,11 +108,36 @@ def logout():
 
 
 
+# Show route
+@user.route('/<id>', methods=["GET"])
+def get_one_user(id):
+    user = models.User.get_by_id(id)
+    return jsonify(data=model_to_dict(user), status={"code": 200, "message": "Success"})
 
+# Update route...?
+@user.route('/<id>', methods=["PUT"])
+def update_comments(id):
+    payload = request.form.to_dict()
+    query = models.User.update(**payload).where(models.User.id == id)
+    query.execute()
+    update_comments = models.User.get_by_id(id)
+    return jsonify(data=model_to_dict(update_comments), status={"code": 200, "message": "Success"})
+   
+# Create Route
+@user.route('/', methods=["POST"])
+def create_comments():
+    payload = request.get_json()
+    print(payload, "<-- payload in post route")
+    user = models.User.create(comments=payload["comments"])
+    user_dict = model_to_dict(user)
+    return jsonify(data=user_dict, status={"code": 200, "message": "Success"})
 
-
-
-
+# Delete route
+@user.route('/<id>', methods=["Delete"])
+def delete_user_comments():
+    query = models.User.delete().where(models.User.id == id)
+    query.execute()
+    return jsonify(data='comment was deleted', status={"code": 200, "message": "Successfully deleted comment"})
 
 
 
