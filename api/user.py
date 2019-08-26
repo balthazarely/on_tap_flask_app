@@ -107,29 +107,32 @@ def logout():
     return jsonify(status={"code": 200, "message": "Success"})
 
 
-
 # Show route
 @user.route('/<id>', methods=["GET"])
 def get_one_user(id):
     user = models.User.get_by_id(id)
     return jsonify(data=model_to_dict(user), status={"code": 200, "message": "Success"})
 
-# Update route...?
+# Update route
 @user.route('/<id>', methods=["PUT"])
 def update_comments(id):
-    payload = request.form.to_dict()
+    payload = request.get_json()
+    # payload_to_dict = payload.to_dict()
+    print(payload, '<-- this is payload in edit route')
     query = models.User.update(**payload).where(models.User.id == id)
     query.execute()
     update_comments = models.User.get_by_id(id)
+    print(update_comments, '<-- this is in the edit route... update_comments')
     return jsonify(data=model_to_dict(update_comments), status={"code": 200, "message": "Success"})
    
-# Create Route
+# # Create Route
 @user.route('/', methods=["POST"])
 def create_comments():
     payload = request.get_json()
     print(payload, "<-- payload in post route")
     user = models.User.create(comments=payload["comments"])
     user_dict = model_to_dict(user)
+    print(user_dict, '<-- this is in the create route... user_dict')
     return jsonify(data=user_dict, status={"code": 200, "message": "Success"})
 
 # Delete route
