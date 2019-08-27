@@ -38,7 +38,7 @@ def save_picture(form_picture):
 @user.route('/register', methods=["POST"])
 def register(): 
     print('This is in my register route')
-    #this is who we grabe the image from the login
+    #this is who we grab the image from the login
     pay_file = request.files
     # this has the form info from the dict.
     # we change the request object into a dict.

@@ -26,8 +26,8 @@ def load_user(userid):
         return None
 
 
-CORS(user, origins=['http://localhost:3000', "https://beer-on-tap.herokuapp.com"], supports_credentials=True)
-CORS(beer, origins=['http://localhost:3000', "https://beer-on-tap.herokuapp.com"], supports_credentials=True)
+CORS(user, origins=['http://localhost:3000', "https://brewery-on-tap.herokuapp.com", "http://brewery-on-tap.herokuapp.com"], supports_credentials=True)
+CORS(beer, origins=['http://localhost:3000', "https://brewery-on-tap.herokuapp.com", "http://brewery-on-tap.herokuapp.com"], supports_credentials=True)
 
 app.register_blueprint(user)
 app.register_blueprint(beer)
