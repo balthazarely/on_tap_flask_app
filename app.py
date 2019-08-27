@@ -2,7 +2,7 @@ from flask import Flask, g
 from flask_cors import CORS
 from flask_login import LoginManager
 import models
-
+import os
 #import the blueprint
 from api.user import user
 from api.beer import beer
@@ -26,8 +26,8 @@ def load_user(userid):
         return None
 
 
-CORS(user, origins=['http://localhost:3000'], supports_credentials=True)
-CORS(beer, origins=['http://localhost:3000'], supports_credentials=True)
+CORS(user, origins=['http://localhost:3000', "http://reactaddress.com"], supports_credentials=True)
+CORS(beer, origins=['http://localhost:3000', "http://reactaddress.com"], supports_credentials=True)
 
 app.register_blueprint(user)
 app.register_blueprint(beer)
@@ -47,6 +47,11 @@ def after_request(response):
 def index():
     return 'hi'
 
-if __name__ == '__main__':
+
+if 'ON_HEROKU' in os.environ:
+    print('hitting ')
     models.initialize()
+
+if __name__ == '__main__':
+    # models.initialize()
     app.run(debug=DEBUG, port=PORT)
