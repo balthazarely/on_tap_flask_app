@@ -15,6 +15,7 @@ class User(UserMixin, BaseModel):
     password = CharField(unique=True)
     image = CharField()
     comments = CharField(null=True)
+    modal = CharField(null=True)
 
 
 class Beer(BaseModel):

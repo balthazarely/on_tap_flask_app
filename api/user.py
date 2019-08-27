@@ -137,7 +137,7 @@ def create_comments():
 
 # Delete route
 @user.route('/<id>', methods=["Delete"])
-def delete_user_comments():
+def delete_user_comments(id):
     query = models.User.delete().where(models.User.id == id)
     query.execute()
     return jsonify(data='comment was deleted', status={"code": 200, "message": "Successfully deleted comment"})
