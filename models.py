@@ -15,7 +15,6 @@ class BaseModel(Model):
 class User(UserMixin, BaseModel):
     username = CharField(unique=True)
     password = CharField(unique=True)
-    image = CharField()
     comments = CharField(null=True)
     modal = CharField(null=True)
 
