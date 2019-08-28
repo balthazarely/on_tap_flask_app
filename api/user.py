@@ -14,14 +14,9 @@ user = Blueprint('users', 'user', url_prefix='/user')
 @user.route('/register', methods=["POST"])
 def register(): 
     print('This is in my register route')
-    pay_file = request.files
 
     payload = request.form.to_dict()
-    dict_file = pay_file.to_dict()
-
     print(payload)
-    print(dict_file)
-
     payload['username'].lower() 
     try:
         models.User.get(models.User.username == payload['username']) 

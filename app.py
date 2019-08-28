@@ -45,7 +45,7 @@ def index():
 
 
 if 'ON_HEROKU' in os.environ:
-    print('hitting ')
+    print('hitting')
     models.initialize()
 
 if __name__ == '__main__':
