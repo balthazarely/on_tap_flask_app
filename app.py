@@ -50,3 +50,10 @@ if 'ON_HEROKU' in os.environ:
 
 if __name__ == '__main__':
     app.run(debug=DEBUG, port=PORT)
+
+
+
+
+
+
+    
