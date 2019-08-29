@@ -15,7 +15,8 @@ user = Blueprint('users', 'user', url_prefix='/user')
 def register(): 
     print('This is in my register route')
 
-    payload = request.form.to_dict()
+    payload = request.get_json();
+    print(request, '<-------- request ------------->')
     print(payload)
     payload['username'].lower() 
     try:

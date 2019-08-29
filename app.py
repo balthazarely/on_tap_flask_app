@@ -6,6 +6,7 @@ import os
 from api.user import user
 from api.beer import beer
 
+#models.initialize();
 
 DEBUG = True
 PORT = 8000

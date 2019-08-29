@@ -4,11 +4,9 @@ import datetime
 import os
 from playhouse.db_url import connect
 
-# Connect to a Postgres database.
 # DATABASE = PostgresqlDatabase('beer_app')
 DATABASE = connect(os.environ.get('DATABASE_URL'))
 class BaseModel(Model):
-    """A base Model that will use our psql database"""
     class Meta: database = DATABASE
 
 
